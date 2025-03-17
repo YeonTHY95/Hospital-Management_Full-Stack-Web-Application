@@ -1,5 +1,6 @@
 export const mockDoctorInfo = [
     {
+      "id": 1,
       "name": "Dr. Zhang Wei",
       "qualification": "BSc (Hons), MBBS (London), MD (Research)(Imperial College London), FRCS (General Surgery) UK",
       "speciality": "Cardiology",
@@ -12,6 +13,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 2,
       "name": "Dr. Li Mei",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Pediatrics) UK",
       "speciality": "Pediatrics",
@@ -23,6 +25,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 3,
       "name": "Dr. Tanaka Hiroshi",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Orthopedics) UK",
       "speciality": "Orthopedics",
@@ -35,6 +38,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 4,
       "name": "Dr. Kim Min-ji",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Dermatology) UK",
       "speciality": "Dermatology",
@@ -47,6 +51,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 5,
       "name": "Dr. Nguyen Van Anh",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Neurology) UK",
       "speciality": "Neurology",
@@ -59,6 +64,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 6,
       "name": "Dr. Chen Xiaoling",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Oncology) UK",
       "speciality": "Oncology",
@@ -70,6 +76,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 7,
       "name": "Dr. Sato Yuki",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Psychiatry) UK",
       "speciality": "Psychiatry",
@@ -82,6 +89,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 8,
       "name": "Dr. Wong Siu Ming",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Endocrinology) UK",
       "speciality": "Endocrinology",
@@ -93,6 +101,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 9,
       "name": "Dr. Park Ji-hoon",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Gastroenterology) UK",
       "speciality": "Gastroenterology",
@@ -105,6 +114,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 10,
       "name": "Dr. Tran Thi Lan",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Rheumatology) UK",
       "speciality": "Rheumatology",
@@ -117,6 +127,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 11,
       "name": "Dr. Liu Yang",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Urology) UK",
       "speciality": "Urology",
@@ -129,6 +140,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 12,
       "name": "Dr. Yamamoto Akira",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Ophthalmology) UK",
       "speciality": "Ophthalmology",
@@ -140,6 +152,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 13,
       "name": "Dr. Lee Hye-jin",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Pulmonology) UK",
       "speciality": "Pulmonology",
@@ -152,6 +165,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 14,
       "name": "Dr. Hoang Minh",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Allergy and Immunology) UK",
       "speciality": "Allergy and Immunology",
@@ -163,6 +177,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 15,
       "name": "Dr. Sunita Patel",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Infectious Disease) UK",
       "speciality": "Infectious Disease",
@@ -175,6 +190,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 16,
       "name": "Dr. Rajesh Kumar",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Cardiology) UK",
       "speciality": "Cardiology",
@@ -187,6 +203,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 17,
       "name": "Dr. Priya Sharma",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Pediatrics) UK",
       "speciality": "Pediatrics",
@@ -199,6 +216,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 18,
       "name": "Dr. Haruto Tanaka",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Orthopedics) UK",
       "speciality": "Orthopedics",
@@ -210,6 +228,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 19,
       "name": "Dr. Ananya Das",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Dermatology) UK",
       "speciality": "Dermatology",
@@ -222,6 +241,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 20,
       "name": "Dr. Ravi Shankar",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Neurology) UK",
       "speciality": "Neurology",
@@ -233,6 +253,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 21,
       "name": "Dr. Mei Ling",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Oncology) UK",
       "speciality": "Oncology",
@@ -245,6 +266,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 22,
       "name": "Dr. Hiroshi Nakamura",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Psychiatry) UK",
       "speciality": "Psychiatry",
@@ -257,6 +279,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 23,
       "name": "Dr. Wei Chen",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Endocrinology) UK",
       "speciality": "Endocrinology",
@@ -269,6 +292,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 24,
       "name": "Dr. Ji-woo Kim",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Gastroenterology) UK",
       "speciality": "Gastroenterology",
@@ -280,6 +304,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 25,
       "name": "Dr. Minh Nguyen",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Rheumatology) UK",
       "speciality": "Rheumatology",
@@ -292,6 +317,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 26,
       "name": "Dr. Anjali Rao",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Urology) UK",
       "speciality": "Urology",
@@ -303,6 +329,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 27,
       "name": "Dr. Yuki Tanaka",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Ophthalmology) UK",
       "speciality": "Ophthalmology",
@@ -315,6 +342,7 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 28,
       "name": "Dr. Hyeon-ju Park",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Pulmonology) UK",
       "speciality": "Pulmonology",
@@ -327,18 +355,20 @@ export const mockDoctorInfo = [
       }
     },
     {
+      "id": 29,
       "name": "Dr. Linh Nguyen",
       "qualification": "BSc (Hons), MBBS (London), FRCS (Allergy and Immunology) UK",
       "speciality": "Allergy and Immunology",
       "spoken_language": ["Vietnamese", "English"],
-      "office_location": "Floor 7, Unit 708",
+      "office_location": "Floor 7, Unit 708, City General",
       "schedule": {
-        "Monday": "8:00 AM - 4:00 PM",
-        "Wednesday": "8:00 AM - 4:00 PM",
-        "Friday": "8:00 AM - 4:00 PM"
+        "Tuesday": "9:00 AM - 5:00 PM",
+        "Thursday": "9:00 AM - 5:00 PM",
+        "Saturday": "10:00 AM - 2:00 PM"
       }
     },
     {
+        "id": 30,
       "name": "Dr. Arjun Patel",
       "qualification": "MBBS (London), MD (Research)(Imperial College London), FRCS (Infectious Disease) UK",
       "speciality": "Infectious Disease",

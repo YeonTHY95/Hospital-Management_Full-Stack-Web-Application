@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Doctorinfo {
+  id                 Int       @id @default(autoincrement())
+  name               String
+  qualification      String
+  speciality         String
+  spoken_language    String[]
+  office_location    String
+  schedule           Json
+  doctor             Doctor?     @relation(fields: [doctorID],references: [id])
+  doctorID           String?     @unique 
+}
+
+model Doctor {
+  id            String          @id @default(cuid())
+  info          Doctorinfo?    
+  username      String          @unique
+  password      String
+  sex           String
+  role          String
+  Appointment   Appointment[]
+}
+
+model User {
+  id            String          @id @default(cuid())
+  username      String          @unique
+  password      String
+  sex           String
+  email         String?          @unique
+  emailVerified DateTime?
+  image         String?
+  role          String
+  Appointment   Appointment[]
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  
+}
+
+model Appointment {
+  appointmentID   Int  @id @default(autoincrement())
+  doctorName      String 
+  patientName     String
+  contactNumber   String
+  appointmentDate DateTime
+  symptom         String
+  doctor          Doctor @relation(fields: [doctorID], references: [id])
+  doctorID        String
+  patient         User   @relation(fields: [patientID],references: [id])
+  patientID       String @unique
+
+}
+ 
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+ 
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+}
+ 
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([userId, credentialID])
+}

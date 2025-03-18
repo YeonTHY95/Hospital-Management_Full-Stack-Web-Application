@@ -5,19 +5,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import mockDoctorInfo from '@/components/mockDoctorInfo';
 
-const FindDoctorForm = () => {
+
+const FindDoctorForm = ( {fetchDoctorData }: { fetchDoctorData: { name: string; id: number }[] }) => {
 
     const [search, setSearch] = useState<string>("");
     const [isFocus, setIsFocus] = useState(false);
     const [matchResult, setMatchResult] = useState<{name:string,id:number}[]>([]);
 
-    const fetchDoctorData = mockDoctorInfo.map( doctor => ({ "name" : doctor.name, "id":doctor.id }) ) ;
+    
+    // const fetchDoctorData =  mockDoctorInfo.map( doctor => ({ "name" : doctor.name, "id":doctor.id }) ) ;
 
     const handleFocus = () => {
         setIsFocus(true);
     };
     const handleBlur = () => {
-        setTimeout( ()=>setIsFocus(false), 1000);
+        setTimeout( ()=> setIsFocus(false), 1000);
     };
 
     useEffect(()=> {

@@ -40,19 +40,19 @@ const MakeAppointment =  () => {
           <label htmlFor='doctorName'>Doctor Name : </label>
         </div>
         <div className='row-start-1 row-end-2 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <input id='doctorName' name="doctorName" type="text" placeholder='Doctor Name' value={doctorName || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setDoctorName(event.currentTarget.value)} />
+          <input className="p-[3px] border-[2px] rounded-md" id='doctorName' name="doctorName" type="text" placeholder='Doctor Name' value={doctorName || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setDoctorName(event.currentTarget.value)} />
         </div>
         <div className='row-start-2 row-end-3 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
           <label htmlFor='patienceName'>Patience Name : </label>
         </div>
         <div className='row-start-2 row-end-3 col-start-2 col-end-3 text-xl justify-self-start self-center' >
-          <input id='patienceName' name="patienceName" type="text" placeholder='Patient Name' value={patientName || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setPatientName(event.currentTarget.value)} />
+          <input className="p-[3px] border-[2px] rounded-md" id='patienceName' name="patienceName" type="text" placeholder='Patient Name' value={patientName || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setPatientName(event.currentTarget.value)} />
         </div>
         <div className='row-start-3 row-end-4 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
           <label htmlFor='contactNumber'>Contact Number : </label>
         </div>
         <div className='row-start-3 row-end-4 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <input id='contactNumber' name="contactNumber" type="text" placeholder='Contact Number' value={contactNumber || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setContactNumber(event.currentTarget.value)} />
+          <input className="p-[3px] border-[2px] rounded-md" id='contactNumber' name="contactNumber" type="text" placeholder='Contact Number' value={contactNumber || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setContactNumber(event.currentTarget.value)} />
         </div>
         <div className='row-start-4 row-end-5 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
           <label htmlFor='appointmentDate'>Appointment Date : </label>
@@ -64,7 +64,7 @@ const MakeAppointment =  () => {
           <label htmlFor='symptom'>Symptoms : </label>
         </div>
         <div className='row-start-5 row-end-6 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <textarea className='outline-black' id='symptom' name="symptom" rows={3} cols={50} placeholder='State your symptom' value={symptom || ""} onChange={(event:React.FormEvent<HTMLTextAreaElement>)=> setSymptom(event.currentTarget.value)} />
+          <textarea className="p-[3px] border-[2px] rounded-md" id='symptom' name="symptom" rows={3} cols={50} placeholder='State your symptom' value={symptom || ""} onChange={(event:React.FormEvent<HTMLTextAreaElement>)=> setSymptom(event.currentTarget.value)} />
         </div>
         <div className='row-start-6 row-end-7 col-start-1 col-end-3 justify-self-center self-center' >
           <button className='bg-sky-500 p-[10px] rounded-xl w-[100px] h-[50px] text-white font-bold hover:bg-sky-700'>Submit</button>

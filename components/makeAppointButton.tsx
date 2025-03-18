@@ -2,10 +2,10 @@
 import React from 'react';
 import Link from 'next/link';
 
-const MakeAppointmentButton = ( {id} : {id : number}) => {
+const MakeAppointmentButton = ( {id} : {id : number | null}) => {
 
   return (
-    <button className='bg-sky-500 p-[10px] rounded-sm'><Link href={`/makeappointment?id=${id}`}>Make Appointment</Link></button>
+    id && <button className='bg-sky-500 p-[10px] rounded-sm'><Link href={`/makeappointment?id=${id}`}>Make Appointment</Link></button>
   )
 }
 

@@ -1,77 +1,53 @@
-"use client";
-import React, {useActionState, useState, useEffect} from 'react';
-import { useSearchParams } from 'next/navigation';
-import Form from 'next/form';
-import makeAppointmentAction from '@/components/makeAppointmentAction';
-import fetchDoctorName from '@/components/fetchDoctorName';
+import React from 'react';
+import prisma from '@/lib/prisma';
+import MakeAppointmentForm from "@/components/makeAppointmentForm";
+import { redirect } from 'next/navigation';
+import { decrypt } from '@/lib/session';
+import { cookies } from 'next/headers';
 
-import DatePicker from "react-datepicker";
+const MakeAppointment =  async ( { searchParams} : { searchParams: Promise<{ id : string}> }) => {
 
-import "react-datepicker/dist/react-datepicker.css";
 
-const MakeAppointment =  () => {
+  const doctorinfoID = await searchParams ;
+  console.log(`doctor info ID is ${JSON.stringify(doctorinfoID)}`)
+  var doctorInfo ; //{ id : number , name : string  , qualification:string, speciality :string, spoken_language :string[],office_location:string , schedule : {"Monday":string} , doctorID : string | null } | null ;
 
-  const searchParams = useSearchParams();
+  if ( !doctorinfoID.id ) {
+    doctorInfo = null ;
+  } else {
+     doctorInfo = await prisma.doctorinfo.findFirst( {
+      where : {
+          id : Number(doctorinfoID.id)
+      },
+  });
+  }
 
-  const [state, formAction , isPending] = useActionState(makeAppointmentAction, null);
+  const doctors = await prisma.doctorinfo.findMany({
+    select: {
+      name : true
+    }
+  })
 
-  useEffect (()=> {
+  const cookieStorage = await cookies();
+  const session = cookieStorage.get('jwtsession')?.value ;
 
-    const process = async () => {
-
-      setDoctorName(await fetchDoctorName(Number(searchParams.get('id'))));
-    } ;
-    
-    process();
-  },[]);
+  const username = await decrypt(session) ;
+  console.log(`username is ${JSON.stringify(username)}`);
   
- 
-  const [doctorName, setDoctorName] = useState<string | null>(null);
-  const [patientName, setPatientName] = useState<string | null>(null);
-  const [contactNumber, setContactNumber] = useState<string | null>(null);
-  const [appointmentDate, setAppointmentDate] = useState<Date>(new Date());
-  const [symptom, setSymptom] = useState<string | null>(null);
+  
+
+  const userID = await decrypt(session) ;
+
+  console.log("userID from cookie is ", userID);
+
+
+  
 
   return (
-    <Form action={formAction}>
-      <legend><p className='text-3xl font-black'>Make Appointment</p></legend>
-      <div className='grid grid-rows-6 grid-cols-2 gap-2 w-[50%] h-[30%]' >
-        <div className='row-start-1 row-end-2 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
-          <label htmlFor='doctorName'>Doctor Name : </label>
-        </div>
-        <div className='row-start-1 row-end-2 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <input className="p-[3px] border-[2px] rounded-md" id='doctorName' name="doctorName" type="text" placeholder='Doctor Name' value={doctorName || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setDoctorName(event.currentTarget.value)} />
-        </div>
-        <div className='row-start-2 row-end-3 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
-          <label htmlFor='patienceName'>Patience Name : </label>
-        </div>
-        <div className='row-start-2 row-end-3 col-start-2 col-end-3 text-xl justify-self-start self-center' >
-          <input className="p-[3px] border-[2px] rounded-md" id='patienceName' name="patienceName" type="text" placeholder='Patient Name' value={patientName || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setPatientName(event.currentTarget.value)} />
-        </div>
-        <div className='row-start-3 row-end-4 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
-          <label htmlFor='contactNumber'>Contact Number : </label>
-        </div>
-        <div className='row-start-3 row-end-4 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <input className="p-[3px] border-[2px] rounded-md" id='contactNumber' name="contactNumber" type="text" placeholder='Contact Number' value={contactNumber || ""} onChange={(event:React.FormEvent<HTMLInputElement>)=> setContactNumber(event.currentTarget.value)} />
-        </div>
-        <div className='row-start-4 row-end-5 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
-          <label htmlFor='appointmentDate'>Appointment Date : </label>
-        </div>
-        <div className='row-start-4 row-end-5 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <DatePicker selected={appointmentDate} onChange={(date) => date && setAppointmentDate(date)} />
-        </div>
-        <div className='row-start-5 row-end-6 col-start-1 col-end-2 text-2xl font-bold justify-self-end self-center'>
-          <label htmlFor='symptom'>Symptoms : </label>
-        </div>
-        <div className='row-start-5 row-end-6 col-start-2 col-end-3 text-xl justify-self-start self-center'>
-          <textarea className="p-[3px] border-[2px] rounded-md" id='symptom' name="symptom" rows={3} cols={50} placeholder='State your symptom' value={symptom || ""} onChange={(event:React.FormEvent<HTMLTextAreaElement>)=> setSymptom(event.currentTarget.value)} />
-        </div>
-        <div className='row-start-6 row-end-7 col-start-1 col-end-3 justify-self-center self-center' >
-          <button className='bg-sky-500 p-[10px] rounded-xl w-[100px] h-[50px] text-white font-bold hover:bg-sky-700'>Submit</button>
-        </div>
-        
-      </div>
-    </Form>
+    <>
+      <MakeAppointmentForm dname={ doctorInfo && doctorInfo.name} username = {username?.userId as string} doctorlist={doctors}/>
+    </>
+    
   )
 }
 

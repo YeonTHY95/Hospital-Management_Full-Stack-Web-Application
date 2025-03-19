@@ -46,6 +46,30 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
             }
             else {
                 
+                const hash = await bcrypt.hash(signupPassword, 10) ;
+
+                console.log(`Hash output is ${hash}`);
+
+                if (hash) {
+                    const newUser = await prisma.user.create({
+                        data: {
+                          username: signupUsername,
+                          password: hash,
+                          role : role,
+                          sex : sex,
+                        },
+                    });
+                    if (newUser) {
+                        console.log("User created successfully.");
+                        return "User created successfully.";
+                    }
+                    else {
+                        return "User fails to create, please try again";
+                    }
+                }
+                else {
+                    return "Hashing Error";
+                }
                 bcrypt.hash(signupPassword, 10, async function(err, hash) {
                     if (err) {
                         console.log(err);
@@ -64,12 +88,15 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
                         console.log("User created successfully.");
                         return "User created successfully.";
                     }
+                    else {
+                        return "User fails to create, please try again";
+                    }
                 });
                 
             }
         }
         else if ( role === "Doctor") {
-            const doctorInfoID = Number(formData.get('doctorInfoID')) ;
+            const doctorInfoID = Number(formData.get('doctorinfoID')) ;
             const zodDoctorInfoID = z.number();
             const doctorInfoIDValidation = await zodDoctorInfoID.safeParseAsync(doctorInfoID);
 
@@ -90,37 +117,53 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
                     return "Username already in use." ;
                 }
                 else {
-                    const newUser = await prisma.doctor.create({
-                        data: {
-                          username: signupUsername,
-                          password: signupPassword,
-                          role : role,
-                          sex : sex,
-                        },
-                        
-                    });
-                    if (newUser) {
-                        console.log("Doctor created successfully.");
-                        const connectwithDoctorInfo = await prisma.doctor.update({
-                            where: {
-                                username: signupUsername
+                    const hash = await bcrypt.hash(signupPassword, 10) ;
+                    console.log("Doctor Info ID is ",doctorInfoIDValidation.data);
+                    if (hash) {
+                        const newUser = await prisma.doctor.create({
+                            data: {
+                              username: signupUsername,
+                              password: hash,
+                              role : role,
+                              sex : sex,
+                            //   info : {
+                            //     connect :  {
+                            //         id : doctorInfoIDValidation.data,
+                            //     }
+                                
+                            //   }
                             },
-                            data : {
-                                info:  {
-                                    connect : {
-                                        id : doctorInfoIDValidation.data,
+                            
+                        });
+                        console.log("After created Doctor, now want to link Doctor Info ID");
+                        console.log("Doctor Info ID is ",doctorInfoIDValidation.data);
+                        if (newUser) {
+                            console.log("Doctor created successfully.");
+                            const connectwithDoctorInfo = await prisma.doctor.update({
+                                where: {
+                                    username: signupUsername
+                                },
+                                data : {
+                                    info:  {
+                                        connect : {
+                                            id : doctorInfoIDValidation.data,
+                                        }
                                     }
                                 }
+                            });
+        
+                            if (connectwithDoctorInfo) {
+                                console.log("Doctor connected with DoctorInfo successfully.");
+                                return "Doctor created successfully.";
                             }
-                        });
-    
-                        if (connectwithDoctorInfo) {
-                            console.log("Doctor connected with DoctorInfo successfully.");
-                            return "Doctor created successfully.";
                         }
                     }
-                    console.log("Doctor failed to create.");
-                    return "Doctor failed to create." ;
+                    else {
+
+                        console.log("Doctor Hash Error, failed to create.");
+                        return "Doctor Hash Error, failed to create." ;
+                    }
+                    
                     
                 }
             }
@@ -128,9 +171,14 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
         }
         
     }
-    console.log("signupValidationResult failed");
-    console.log(signupValidationResult.error?.issues[0]?.message);
-    return signupValidationResult.error?.issues[0]?.message || "signupValidationResult failed";
+    else {
+        console.log("signupValidationResult failed");
+        console.log(signupValidationResult.error?.issues[0]?.message);
+        return signupValidationResult.error?.issues[0]?.message || "signupValidationResult failed";
+
+    }
+
+    return "Unknown Issue";
 }
 
 export default signupAction

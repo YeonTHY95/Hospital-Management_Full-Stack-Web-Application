@@ -2,8 +2,10 @@
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
 import bcrypt from 'bcrypt';
+import { createSession } from '@/lib/session';
+import {redirect} from "next/navigation";
 
-const signupAction = async (prevState : string, formData:FormData ): Promise<string> => {
+const signupAction = async (prevState : string, formData:FormData ) : Promise<string> => {
   
     const signinUsername = formData.get('signinUsername');
     const signinPassword = formData.get('signinPassword');
@@ -12,84 +14,75 @@ const signupAction = async (prevState : string, formData:FormData ): Promise<str
     const signinZodSchema = z.object({
         signinUsername : z.string().min(1, {message:"Please provide username"}),
         signinPassword : z.string().min(1, {message:"Please provide password"}),
-        role : z.enum(["Patient", "Doctor"], { message:"Must select either Patient or Doctor"}),
+        //role : z.enum(["Patient", "Doctor"], { message:"Must select either Patient or Doctor"}),
     });
+    
+    const parsedCredentials = await signinZodSchema.safeParseAsync({signinUsername,signinPassword }) ;
 
-    const signinValidation = await signinZodSchema.safeParseAsync({signinUsername, signinPassword,role});
+    if (parsedCredentials.success) {
+        const { signinUsername, signinPassword} = parsedCredentials.data;
 
-    if (signinValidation.success){
-        const { signinUsername, signinPassword, role } =  signinValidation.data ;
-        if ( role === "Doctor") {
+        console.log(`Successful parsedCredentials is ${JSON.stringify(parsedCredentials)}`);
+
+        var user =  await prisma.user.findUnique({
+            where: {
+              username: signinUsername,
+            },
+        });
+        console.log("After user");
+        console.log(`User is ${JSON.stringify(user)}`);
+        if (!user) {
             const doctor = await prisma.doctor.findUnique({
-                where : {
-                    username : signinUsername,
-                }
+                where: {
+                  username: signinUsername,
+                },
             });
 
-            const hashpassword = doctor?.password;
+            if (doctor) {
+                
+                const passwordsMatch = await bcrypt.compare(signinPassword, doctor.password);
+                if (passwordsMatch) {
+                console.log("It's a Doctor");
+                console.log("Password Matched for Authentication ", passwordsMatch);
+                console.log(`user is ${JSON.stringify(user)}`);
 
-            if (hashpassword === undefined) {
-                return "Invalid User for Password";
+                await createSession(doctor.username);
+                redirect("/userview");
+                //return "Sign in successfully";
+                }
             }
-            try {
-    
-                bcrypt.compare(signinPassword, hashpassword , function(err, result) {
-                    if (err) {
-                        console.log("Inside passwordCompared callback function Error");
-                        throw err;
-                    }
-                    if (result) {
-                        return "Signin successfully";
-                    }
-                });
+            else {
+                console.log(`User cannot be found in Database`);
+                return "User cannot be found in Database";
             }
-            catch(error) {
-                console.log(error);
-                // throw error;
-            }
+
         }
-        else if ( role === "Patient") {
-            const user = await prisma.user.findUnique({
-                where : {
-                    username : signinUsername,
-                }
-            });
+        else {
+            // Continue with Patient 
+            console.log("Before user password matches");
+            const passwordsMatch = await bcrypt.compare(signinPassword, user.password);
+            if (passwordsMatch) {
+            console.log("It's a Patient");
+            console.log("Password Matched for Authentication ", passwordsMatch);
+            console.log(`user is ${JSON.stringify(user)}`);
 
-            const hashpassword = user?.password;
-
-            if (hashpassword === undefined) {
-                return "Invalid User for Password";
+            await createSession(user.username);
+            redirect("/userview");
             }
-            try {
-    
-                bcrypt.compare(signinPassword, hashpassword , function(err, result) {
-                    if (err) {
-                        console.log("Inside passwordCompared callback function Error");
-                        throw err;
-                    }
-                    if (result) {
-                        return "Signin successfully";
-                    }
-                });
-            }
-            catch(error) {
-                console.log(error);
-                // throw error;
+            else {
+                console.log("Wrong patient password");
+                return "Wrong user password";
             }
         }
     }
     else {
-        console.log(signinValidation.error?.issues[0]?.message);
-        return signinValidation.error?.issues[0]?.message || "signupValidationResult failed";
+        console.log(`parsedCredentials is ${JSON.stringify(parsedCredentials)}`);
+        console.log(parsedCredentials.error?.issues[0]?.message);
+        return parsedCredentials.error?.issues[0]?.message;
     }
 
-    
+    console.log("Something is wrong");
 
-    
-
-    return "";
-
-    
+    return ""
 }
-
 export default signupAction

@@ -40,7 +40,7 @@ const FindDoctorForm = ( {fetchDoctorData }: { fetchDoctorData: { name: string; 
   return (
     <div className='relative'>
         <Form action="/finddoctor" className='w-full h-min flex border-3 rounded-md justify-between gap-[2px]'>
-            <input onFocus={handleFocus} onBlur={handleBlur} className='min-h-auto w-full m-[10px] outline-none caret-cyan-900' placeholder='Find a Doctor' value={ search || "" } onChange={(event:React.FormEvent<HTMLInputElement>)=> {
+            <input name="searchdoctorname" onFocus={handleFocus} onBlur={handleBlur} className='min-h-auto w-full m-[10px] outline-none caret-cyan-900' placeholder='Find a Doctor' value={ search || "" } onChange={(event:React.FormEvent<HTMLInputElement>)=> {
                 setSearch(event.currentTarget.value);
             }
             }/><button type="submit" className='p-2'><Image src="/magnifier.png" width={32} height={32} alt="Find" /></button>

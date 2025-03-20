@@ -335,17 +335,21 @@ const MyAppointment = async ({ searchParams} : { searchParams : Promise<{ userna
       nameList.push(appointment.doctorName);
     })
     upcomingAppointments.map(appointment => {
-      nameList.push(appointment.doctorName);
-    })
+      
+      nameList.push(appointment.doctorName); 
+    });
   }
   else if (role === "Doctor") {
     historicalAppointments.map( appointment => {
       nameList.push(appointment.patientName);
     })
     upcomingAppointments.map(appointment => {
+      
       nameList.push(appointment.patientName);
-    })
+    });
   }
+
+  const uniqueNameList = [...new Set(nameList)];
   
 
 
@@ -353,7 +357,7 @@ const MyAppointment = async ({ searchParams} : { searchParams : Promise<{ userna
   return (
     <div>
       <div>
-          <SearchByName fetchNameList = {nameList} username={username} role={role} />
+          <SearchByName fetchNameList = {uniqueNameList} username={username} role={role} />
       </div>
       {
         (role === "Patient") ?

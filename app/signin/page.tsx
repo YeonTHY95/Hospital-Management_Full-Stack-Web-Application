@@ -39,6 +39,7 @@ const SignInPage = () => {
             case "Sign in successfully" : {
                 console.log("Sign in successfully");
                 redirect('/userview');
+                break;
             }
         }
     },[state, isPending]);

@@ -2,13 +2,14 @@
 import { z } from "zod";
 import prisma from "@/lib/prisma";
 
-const makeAppointmentAction = async ( prevState: string | null, formData : FormData): Promise<string> => {
+const updateAppointmentAction = async ( prevState: string, formData : FormData): Promise<string> => {
     
     const doctorName = formData.get("doctorName");
     const patientName = formData.get("patientName");
     const contactNumber = formData.get("contactNumber");
     const appointmentDate = formData.get("appointmentDate");
     const symptom = formData.get("symptom");
+    const id = Number(formData.get("id"));
 
     console.log(`appointmentDate is ${formData.get("appointmentDate")}`);
     console.log(`appointmentDate is ${appointmentDate}`);
@@ -18,16 +19,17 @@ const makeAppointmentAction = async ( prevState: string | null, formData : FormD
         patientName : z.string({required_error:"Name is needed to provide"}),
         contactNumber : z.string().min(1,{message:"Contact Number is needed"}).max(15,{message:"Incorrect Number Format"}),
         appointmentDate : z.string().date(),
-        symptom : z.string({required_error:"Please provide symptom"})
+        symptom : z.string({required_error:"Please provide symptom"}),
+        id : z.number()
     });
 
     const validationResult = await appointmentZodSchema.safeParseAsync({
-        doctorName,patientName, contactNumber,appointmentDate, symptom
+        doctorName,patientName, contactNumber,appointmentDate, symptom,id
     });
 
     if (validationResult.success) {
         console.log("ValidationResult is successful");
-        const {doctorName,patientName, contactNumber,appointmentDate, symptom} = validationResult.data;
+        const {doctorName,patientName, contactNumber,appointmentDate, symptom,id} = validationResult.data;
         const doctorWithID = await prisma.doctorinfo.findFirst({
             where : {
                 name : doctorName
@@ -61,7 +63,10 @@ const makeAppointmentAction = async ( prevState: string | null, formData : FormD
 
             console.log(`appointmentDate is ${appointmentDate}, type is ${typeof appointmentDate}`)
 
-            const createAppointment = await prisma.appointment.create({
+            const updateAppointment = await prisma.appointment.update({
+                where :{
+                    appointmentID : id
+                },
                 data: {
                     doctorName,
                     patientName,
@@ -74,13 +79,13 @@ const makeAppointmentAction = async ( prevState: string | null, formData : FormD
                 }
             });
 
-            if (createAppointment){
-                console.log("Appointment created successfully");
-                return "Appointment created successfully" ;
+            if (updateAppointment){
+                console.log("Appointment updated successfully");
+                return "Appointment updated successfully" ;
             }
             else {
-                console.log("Failed to create Appointment");
-                return "Failed to create Appointment";
+                console.log("Failed to update Appointment");
+                return "Failed to update Appointment";
             }
         }
         else {
@@ -101,4 +106,4 @@ const makeAppointmentAction = async ( prevState: string | null, formData : FormD
     return "";
 }
 
-export default makeAppointmentAction
+export default updateAppointmentAction

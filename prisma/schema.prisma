@@ -66,8 +66,9 @@ model Appointment {
   doctor          Doctor @relation(fields: [doctorID], references: [id])
   doctorID        String
   patient         User   @relation(fields: [patientID],references: [id])
-  patientID       String @unique
-
+  patientID       String 
+  status          String
+  details         String?
 }
  
 model Account {

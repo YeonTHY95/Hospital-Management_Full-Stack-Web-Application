@@ -43,7 +43,7 @@ Doctor's account is just for viewing appointment and making medical reports
  - Find Doctor Page
  - Make Appointment Page ✅
  - Symptom Page
- - My Appointment
+ - My Appointment ✅
  - Doctor Detail Page ✅
- - Doctor Appointment
- - Doctor Report Page
+ - Doctor Appointment ✅
+ - Doctor Report Page ✅

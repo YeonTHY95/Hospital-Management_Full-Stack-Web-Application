@@ -15,10 +15,13 @@
 
 This is a web application demonstration built with NextJS, TypeScript, Tailwind CSS, PostgreSQL and so on. The patient can review and make appointment with doctor after signin whereas doctor can review and make report after appointment.
 
+### Search Result
 ![search](./public/hospital-ss-search.png)
 
+### Patient's View
 ![patientview](./public/hospital-ss-patientview.png)
 
+### Doctor's View
 ![doctorview](./public/hospital-ss-doctorview.png)
 
 Images source : FreePik, https://www.freepik.com/
@@ -77,6 +80,12 @@ Create a new file named .env in the root of your project and add the following c
 > DATABASE_URL="postgresql://username:password@hostname:port/databasename?schema=public"
 > 
 > SESSION_SECRET="CookiesBIGSecret"
+
+### Seeding Database
+
+To populate database with Doctor Info from file seed.ts
+
+> npx prisma db seed
 
 ### Running the Project
 

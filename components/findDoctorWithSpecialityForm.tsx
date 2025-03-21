@@ -7,9 +7,10 @@ import mockDoctorInfo from '@/components/mockDoctorInfo';
 import { useDebouncedCallback } from 'use-debounce';
 
 
-const FindDoctorForm = ( {fetchDoctorData }: { fetchDoctorData: { name: string; id: number }[] }) => {
+const FindDoctorWithSpecialityForm = ( {fetchDoctorData ,specialityArray}: { fetchDoctorData: { name: string; id: number; speciality: string}[],specialityArray: string[] }) => {
 
     const [search, setSearch] = useState<string>("");
+    const [speciality, setSpeciality] = useState<string>("");
     const [isFocus, setIsFocus] = useState(false);
     const [matchResult, setMatchResult] = useState<{name:string,id:number}[]>([]);
 
@@ -36,10 +37,15 @@ const FindDoctorForm = ( {fetchDoctorData }: { fetchDoctorData: { name: string; 
         const matchResultFilter = fetchDoctorData.filter( doctorName => {
             // console.log("Search inside is ", search);
             // console.log("fetchDoctorData's length is ", fetchDoctorData.length);
+            //console.log(`speciality is ${speciality}`);
             if (search === "") {
-                return false;
+                return false;   
             }
-            return doctorName.name.toLowerCase().includes(search);
+            if (speciality === "") {
+                // console.log(`speciality is empty`);
+                return doctorName.name.toLowerCase().includes(search)
+            }
+            return doctorName.name.toLowerCase().includes(search) && doctorName.speciality.includes(search);
         });
         //console.log(`fetchDoctorData is ${fetchDoctorData}`);
         //console.log(`matchResultFilter is ${matchResultFilter}`);
@@ -53,7 +59,16 @@ const FindDoctorForm = ( {fetchDoctorData }: { fetchDoctorData: { name: string; 
             <input name="searchdoctorname" onFocus={handleFocus} onBlur={handleBlur} className='min-h-auto w-full m-[10px] outline-none caret-cyan-900' placeholder='Find a Doctor' value={ search || "" } onChange={(event:React.FormEvent<HTMLInputElement>)=> {
                 setSearch(event.currentTarget.value);
             }
-            }/><button type="submit" className='p-2'><Image src="/magnifier.png" width={32} height={32} alt="Find" /></button>
+            }/>
+            <select className="outline-rose-500" id="speciality" name="speciality" value={speciality} onChange={e => setSpeciality(e.target.value)}>
+                <option value="" >Find by Speciality</option>
+                {specialityArray && specialityArray.map( s => (
+                    <option key={s} value={s}>
+                    {s}
+                    </option>
+                ))}
+            </select>
+            <button type="submit" className='p-2'><Image src="/magnifier.png" width={32} height={32} alt="Find" /></button>
         </Form>
         {isFocus && (<div className='absolute top-[45px] m-[5px] z-15 bg-white'>
             <ul>
@@ -65,4 +80,4 @@ const FindDoctorForm = ( {fetchDoctorData }: { fetchDoctorData: { name: string; 
   )
 }
 
-export default FindDoctorForm
+export default FindDoctorWithSpecialityForm

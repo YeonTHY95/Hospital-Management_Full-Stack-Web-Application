@@ -23,7 +23,7 @@ const DoctorDetails = async ( {params} : {params: Promise< { doctorID : number }
   return (
     <div className='grid grid-cols-3 grid-rows-5 gap-5'>
       <div className='row-start-1 row-end-6 col-start-1 col-end-2 flex justify-center items-center' >
-        <Image src='/doctoricon.svg' height={500} width={300} alt='Doctor Profile Picture'/>
+        <Image priority className="size-auto" src='/doctoricon.svg' height={500} width={300} alt='Doctor Profile Picture'/>
       </div>
       <div className='row-start-1 row-end-2 col-start-2 col-end-3 text-3xl font-bold'>
         <p>{doctorInfo && doctorInfo.name}</p>

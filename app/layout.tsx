@@ -43,11 +43,11 @@ export default async function RootLayout({
         <div className="flex justify-between items-center ml-[5px]">
           <nav>
             <span className="">
-              <Link href='/' className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white">Home </Link> 
-              | <Link href='' className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white">Our Services </Link> 
-              | <Link href='/makeappointment'className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white">Make Appointment </Link> 
-              | <Link href='/about'className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white">About Us</Link>
-               {(userID ) && (<span> | <Link href='/userview'className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white">AccountView</Link></span>)}
+              <Link href='/' className="navlinkstyle">Home </Link> 
+              | <Link href='' className="navlinkstyle">Our Services </Link> 
+              | <Link href='/makeappointment'className="navlinkstyle">Make Appointment </Link> 
+              | <Link href='/about'className="navlinkstyle">About Us</Link>
+               {(userID ) && (<span> | <Link href='/userview'className="navlinkstyle">AccountView</Link></span>)}
             </span>
           </nav>
           { 
@@ -61,8 +61,8 @@ export default async function RootLayout({
                   
                         (<div className="flex justify-end items-center gap-[5px]">
                           
-                          <Link href='/signin' className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white">Sign In </Link> 
-                        | <Link href='/signup' className="text-xl font-bold text-green-300 decoration-sky-500 hover:bg-green-500 hover:text-white pr-[5px]">Sign Up </Link> 
+                          <Link href='/signin' className="navlinkstyle">Sign In </Link> 
+                        | <Link href='/signup' className="navlinkstyle pr-[5px]">Sign Up </Link> 
                         </div>)
           }
           

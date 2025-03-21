@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ImageSlider from "@/components/imageslider";
 import FindDoctorForm from "@/components/finddoctorform";
+import SpecialityForm from "@/components/specialityForm";
 import prisma from '@/lib/prisma';
 
 export default async function Home() {
@@ -11,6 +12,14 @@ export default async function Home() {
       id: true
     }
   });
+  const fetchSpeciality:{ speciality : string}[] = await prisma.doctorinfo.findMany ( {
+    select : {
+      speciality : true,
+    }
+  });
+
+  const specialityArray = fetchSpeciality.map( s => s.speciality);
+  const specialityUniqueArray = [...new Set(specialityArray)];
 
   return (
     <div className="flex flex-col justify-center items-center gap-[2px]">
@@ -18,8 +27,8 @@ export default async function Home() {
       
       <div className="flex justify-around relative w-[80%] z-[20]">
           <FindDoctorForm fetchDoctorData={fetchDoctor}/>
-          <FindDoctorForm fetchDoctorData={fetchDoctor}/>
-          <FindDoctorForm fetchDoctorData={fetchDoctor}/>
+          <SpecialityForm specialityArray={specialityUniqueArray} />
+          
       </div>
       <div className="bg-orange-300 h-[300px] w-full relative z-[1] flex justify-center items-center">
         <p className="text-5xl">Information 1</p>

@@ -19,7 +19,7 @@ const PaginationComponent = ({ itemsPerPage, totalItems, allItemsArray}: {itemsP
   return (
     <div>
         <div>
-            <PaginationButton total={totalItems} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} />
+            <PaginationButton currentPage={currentPage} total={totalItems} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} />
         </div>
         <div>
         { currentItemsArray.map(doctor => (

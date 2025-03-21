@@ -13,7 +13,7 @@ const SpecialityForm = ( {specialityArray }: { specialityArray: string[] }) => {
 
   return (
     <div className='relative'>
-        <Form action="/finddoctor" className='w-full h-min flex border-3 rounded-md justify-between gap-[2px]'>
+        <Form action="/finddoctor" className='w-full h-[50px] flex border-3 rounded-md justify-between gap-[2px]'>
             <select className="outline-rose-500" id="speciality" name="speciality" value={speciality} onChange={e => setSpeciality(e.target.value)}>
                 <option value="" >Find by Speciality</option>
                 {specialityArray && specialityArray.map( s => (

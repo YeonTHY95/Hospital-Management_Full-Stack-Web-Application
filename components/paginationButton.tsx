@@ -1,4 +1,5 @@
 import React from 'react';
+import { clsx } from 'clsx';
 
 const PaginationButton = ({total, itemsPerPage, currentPage, setCurrentPage}: {total:number, itemsPerPage:number,currentPage: number,setCurrentPage: React.Dispatch<React.SetStateAction<number>>}) => {
 
@@ -26,7 +27,7 @@ const PaginationButton = ({total, itemsPerPage, currentPage, setCurrentPage}: {t
         }}>Previous</button> }
         {   <div className='flex justify-center items-center gap-3 '> {
             numberofButton.map( (b,index) => {
-                return <button className ='hover:cursor-pointer border-2 p-[3px]' onClick={()=> setCurrentPage(b) } key={index}>{b}</button>
+                return <button className ={clsx('hover:cursor-pointer border-2 rounded-md p-[3px]', currentPage === b && "bg-green-500 text-white p-[10px]" )} onClick={()=> setCurrentPage(b) } key={index}>{b}</button>
             })
                 }
             </div>

@@ -13,7 +13,7 @@
 
 ## Background
 
-This is a web application demonstration built with NextJS, TypeScript, PostgreSQL and so on. The patient can review and make appointment with doctor after signin whereas doctor can review and make report after appointment. 
+This is a web application demonstration built with NextJS, TypeScript, Tailwind CSS, PostgreSQL and so on. The patient can review and make appointment with doctor after signin whereas doctor can review and make report after appointment.
 
 Images source : FreePik
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { cookies} from 'next/headers';
 import { decrypt } from "@/lib/session";
+import OurServicesComponent from "@/components/ourservices";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,12 +41,13 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="flex justify-between items-center ml-[5px]">
+        <div className="flex justify-between items-center ml-[5px] relative">
           <nav>
             <span className="">
               <Link href='/' className="navlinkstyle">Home </Link> 
-              | <Link href='' className="navlinkstyle">Our Services </Link> 
+              | <OurServicesComponent />
               | <Link href='/makeappointment'className="navlinkstyle">Make Appointment </Link> 
+              | <Link href='/finddoctor'className="navlinkstyle">Find Doctor </Link> 
               | <Link href='/about'className="navlinkstyle">About Us</Link>
                {(userID ) && (<span> | <Link href='/userview'className="navlinkstyle">AccountView</Link></span>)}
             </span>

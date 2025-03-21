@@ -94,7 +94,7 @@ const FindDoctor = async ( {searchParams} : { searchParams : Promise<{searchdoct
 
       </div>
       <div className='relative z-1'>
-        <p className='font-bold text-2xl m-[5px]'><span className='font-bold text-5xl'><CountUpComponent number={doctorList.length} /></span> doctors found</p>
+        <p className='font-bold text-2xl m-[5px]'><span className='font-bold text-5xl'><CountUpComponent n={doctorList.length} /></span> doctors found</p>
       </div>
       <div className='relative z-1'>
         <PaginationComponent  

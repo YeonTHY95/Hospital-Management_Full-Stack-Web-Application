@@ -27,7 +27,7 @@ body {
 
 .swiper {
   width: 100%;
-  height: 100%;
+  height: 300px;
 }
 
 .swiper-slide {
@@ -77,5 +77,66 @@ body {
   .navlinkstyle {
     @apply p-[10px] text-xl font-bold text-green-500 decoration-sky-500 hover:bg-green-500 hover:text-white hover:p-[10px] hover:rounded-md
   }
+
+}
+
+.backgroundimage {
+  background-image: url("../public/sunsetview.jpg");
+  background-color: #cccccc;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aboutus {
+  background-image: url("../public/view.jpg");
+  background-color: #cccccc;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+}
+
+.ourservicescontainer {
+  position: relative;
+}
+
+.ourservicescontainer:hover .tooltips {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  position:absolute;
+  z-index: 10;
+  left : -20px;
+  top: 10px;
+  opacity: 1;
+}
+
+.tooltips {
+  position:absolute;
+  z-index: 10;
+  top: 10px;
+  left: 0px;
+  padding: 10px;
+  margin : 20px;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.ourservices{
+  padding: 10px;
+  font-size: 20px;
+  color: oklch(0.723 0.219 149.579);
+  text-decoration-color : oklch(0.685 0.169 237.323);
+  font-weight: 700;
+}
+
+.ourservices:hover{
+  padding: 10px;
+  background-color: oklch(0.723 0.219 149.579) ;
+  color:white;
+  border-radius: 6px;
 
 }
